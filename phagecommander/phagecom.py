@@ -826,7 +826,7 @@ class NewFileDialog(QDialog):
         ARAGORN_LABEL_TEXT = 'Aragorn'
         aragornLabel = QLabel(ARAGORN_LABEL_TEXT)
         aragornLabel.setFont(labelFont)
-        aragornBox = QCheckBox(ARAGORN_LABEL_TEXT)
+        aragornBox = QCheckBox('Aragorn (for tRNA)')
         
         # (GRyde) Increase font size used for checkboxes
         checkBoxFont = QFont()
@@ -861,11 +861,11 @@ class NewFileDialog(QDialog):
             
         
         # species combo box
-        speciesLabel = QLabel('Species:')
+        speciesLabel = QLabel('Host species (for host-trained GeneMark):')
         speciesLabel.setFont(labelFont)
         self.speciesComboBox = QComboBox()
         self.speciesComboBox.addItems(Gene.SPECIES)
-        self.speciesComboBox.setMaximumWidth(350) # Originally 250
+        self.speciesComboBox.setMaximumWidth(750) # Originally 250
         
         # (GRyde) Testing disable of Glimmer box (works, just need to uncomment when ready to use)
         # platformCheck = platform.system()
@@ -877,7 +877,7 @@ class NewFileDialog(QDialog):
         
 
         # dna file input
-        fileLabel = QLabel('Fasta File:')
+        fileLabel = QLabel('Input genome (.fasta file):')
         fileLabel.setFont(labelFont)
         self.fileEdit = QLineEdit()
         fileButton = QPushButton('Open...')
@@ -923,7 +923,8 @@ class NewFileDialog(QDialog):
 
         # species
         speciesLayout.addWidget(speciesLabel)
-        speciesLayout.addWidget(self.speciesComboBox)
+        # (GRyde) int argument is stretch factor
+        speciesLayout.addWidget(self.speciesComboBox, 2)
 
         # file
         dnaFileLayout.addWidget(self.fileEdit)
@@ -942,7 +943,7 @@ class NewFileDialog(QDialog):
         # Testing if I can modify size
         # Verified that this does change the overall New... box size
         # Original size somewhere around 250, increasing for readability
-        self.setMinimumWidth(450)
+        self.setMinimumWidth(900)
         self.setMinimumHeight(250)
         # (GRyde) ******************************************************* end
 

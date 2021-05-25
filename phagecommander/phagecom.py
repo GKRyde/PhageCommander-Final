@@ -793,11 +793,11 @@ class NewFileDialog(QDialog):
             GMS > GeneMark S
             GMS2 > GeneMark S2
         """
-        genemarkLabel = QLabel('Genemark')
+        genemarkLabel = QLabel('GeneMark')
         genemarkLabel.setFont(labelFont)
-        gmBox = QCheckBox('Genemark')
+        gmBox = QCheckBox('GeneMark')
         self.hmmBox = QCheckBox('Host-trained GeneMark')
-        heuristicBox = QCheckBox('GeneMark w/ Heuristic')
+        heuristicBox = QCheckBox('GeneMark w/ Heuristics')
         gmsBox = QCheckBox('GeneMark S')
         gms2Box = QCheckBox('GeneMark S2')
 
@@ -865,7 +865,7 @@ class NewFileDialog(QDialog):
         speciesLabel.setFont(labelFont)
         self.speciesComboBox = QComboBox()
         self.speciesComboBox.addItems(Gene.SPECIES)
-        self.speciesComboBox.setMaximumWidth(750) # Originally 250
+        self.speciesComboBox.setMaximumWidth(550) # Originally 250
         
         # (GRyde) Testing disable of Glimmer box (works, just need to uncomment when ready to use)
         # platformCheck = platform.system()
@@ -894,32 +894,33 @@ class NewFileDialog(QDialog):
         #         so re-adding is easy if necessary
         # genemark
         # (GRyde) Order of checkboxes has also been requested to be updated
-       
-        # glimmer
-        #checkBoxLayout.addWidget(glimmerLabel, 3, 0)
-        checkBoxLayout.addWidget(glimmerBox, 1, 0)
-        
-        #checkBoxLayout.addWidget(genemarkLabel, 0, 0)
-        checkBoxLayout.addWidget(gmsBox, 1, 1)
-        checkBoxLayout.addWidget(self.hmmBox, 1, 2)
-        checkBoxLayout.addWidget(gmBox, 2, 0)
-        checkBoxLayout.addWidget(gms2Box, 2, 1)
-        checkBoxLayout.addWidget(heuristicBox, 2, 2)
         
         # rast
         #checkBoxLayout.addWidget(rastLabel, 3, 2)
-        checkBoxLayout.addWidget(rastBox, 3, 0)
-
+        checkBoxLayout.addWidget(rastBox, 1, 0)
+        
         # prodigal
         #checkBoxLayout.addWidget(prodigalLabel, 3, 1)
-        checkBoxLayout.addWidget(prodigalBox, 3, 1)
-
+        checkBoxLayout.addWidget(prodigalBox, 1, 1)
+        
         # metagene
         #checkBoxLayout.addWidget(metageneLabel, 5, 0)
-        checkBoxLayout.addWidget(metageneBox, 3, 2)
+        checkBoxLayout.addWidget(metageneBox, 1, 2)
+       
+        # glimmer
+        #checkBoxLayout.addWidget(glimmerLabel, 3, 0)
+        checkBoxLayout.addWidget(glimmerBox, 2, 0)
+        
+        #checkBoxLayout.addWidget(genemarkLabel, 0, 0)
+        checkBoxLayout.addWidget(gmBox, 2, 1)
+        checkBoxLayout.addWidget(heuristicBox, 2, 2)
+        checkBoxLayout.addWidget(gmsBox, 3, 0)
+        checkBoxLayout.addWidget(gms2Box, 3, 1)
+        checkBoxLayout.addWidget(self.hmmBox, 3, 2)
+        
         # aragorn
         #checkBoxLayout.addWidget(aragornLabel, 5, 1)
-        checkBoxLayout.addWidget(aragornBox, 4, 0)
+        #checkBoxLayout.addWidget(aragornBox, 4, 0)
 
         # species
         speciesLayout.addWidget(speciesLabel)
@@ -936,6 +937,7 @@ class NewFileDialog(QDialog):
         
         mainLayout.addLayout(checkBoxLayout)
         mainLayout.addLayout(speciesLayout)
+        mainLayout.addWidget(aragornBox)
         mainLayout.addWidget(fileLabel)
         mainLayout.addLayout(dnaFileLayout)
         mainLayout.addLayout(buttonLayout)
@@ -943,7 +945,7 @@ class NewFileDialog(QDialog):
         # Testing if I can modify size
         # Verified that this does change the overall New... box size
         # Original size somewhere around 250, increasing for readability
-        self.setMinimumWidth(900)
+        self.setMinimumWidth(750)
         self.setMinimumHeight(250)
         # (GRyde) ******************************************************* end
 
@@ -1011,7 +1013,8 @@ class NewFileDialog(QDialog):
         Open a dialog for user to select DNA file
         """
         last_fasta_file_location = self.settings.value(self._LAST_FASTA_FILE_LOCATION_SETTING)
-        file = QFileDialog.getOpenFileName(self, 'Open DNA File', last_fasta_file_location)
+        # (GRyde) Request to filter only .fasta files
+        file = QFileDialog.getOpenFileName(self, 'Open DNA File', last_fasta_file_location, "FASTA file (*.fasta)")
 
         # if file was chosen, set file line edit
         if file[0]:

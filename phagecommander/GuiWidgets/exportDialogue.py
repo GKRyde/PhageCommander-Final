@@ -53,11 +53,11 @@ class exportDialog(QDialog):
                 self.toolCount += 1
         self.saveFileName = ''
         
-        # (GRyde) Font size for radio buttons and labels
-        #         Radio font also used for checkbox (want same size for both)
+        # radio button font
         radioFont = QFont()
         radioFont.setPointSize(12)
         
+        # label font
         exportLabelFont = QFont()
         exportLabelFont.setPointSize(12)
         exportLabelFont.setUnderline(True)

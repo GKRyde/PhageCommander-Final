@@ -781,7 +781,6 @@ class NewFileDialog(QDialog):
         # label font
         labelFont = QFont()
         labelFont.setUnderline(True)
-        # (GRyde) Increase label font size
         labelFont.setPointSize(12)
 
         # WIDGETS ----------------------------------------------------------------------------------
@@ -828,7 +827,7 @@ class NewFileDialog(QDialog):
         aragornLabel.setFont(labelFont)
         aragornBox = QCheckBox('Aragorn (for tRNA)')
         
-        # (GRyde) Increase font size used for checkboxes
+        # checkbox font
         checkBoxFont = QFont()
         checkBoxFont.setPointSize(12)
         
@@ -924,7 +923,7 @@ class NewFileDialog(QDialog):
 
         # species
         speciesLayout.addWidget(speciesLabel)
-        # (GRyde) int argument is stretch factor
+        # .addWidget(widget, stretch factor)
         speciesLayout.addWidget(self.speciesComboBox, 2)
 
         # file
@@ -942,10 +941,8 @@ class NewFileDialog(QDialog):
         mainLayout.addLayout(dnaFileLayout)
         mainLayout.addLayout(buttonLayout)
         # (GRyde) ******************************************************* start
-        # Testing if I can modify size
-        # Verified that this does change the overall New... box size
-        # Original size somewhere around 250, increasing for readability
-        self.setMinimumWidth(750)
+        # WINDOW SIZE
+        self.setMinimumWidth(650)
         self.setMinimumHeight(250)
         # (GRyde) ******************************************************* end
 
@@ -2089,7 +2086,7 @@ class GeneMain(QMainWindow):
             item.setBackground(color)
             item.setForeground(textColor)
             
-        # (GRyde) Test to increase font size of entire table at end
+        # table font
         tableFont = QFont()
         tableFont.setPointSize(15)
         

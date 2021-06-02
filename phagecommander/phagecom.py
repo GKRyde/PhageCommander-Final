@@ -879,11 +879,11 @@ class NewFileDialog(QDialog):
         fileLabel = QLabel('Input genome (.fasta file):')
         fileLabel.setFont(labelFont)
         self.fileEdit = QLineEdit()
-        fileButton = QPushButton('Open...')
+        fileButton = QPushButton('Select...')
         fileButton.clicked.connect(self.openFileDialog)
 
         # buttons
-        self.queryButton = QPushButton('Query')
+        self.queryButton = QPushButton('Run Phage Commander')
         self.queryButton.clicked.connect(self.accept)
         self.cancelButton = QPushButton('Cancel')
         self.cancelButton.clicked.connect(self.reject)
@@ -948,7 +948,7 @@ class NewFileDialog(QDialog):
 
         # Dialog Settings --------------------------------------------------------------------------
         self.setLayout(mainLayout)
-        self.setWindowTitle('Select Query Tools')
+        self.setWindowTitle('Select Gene Identification Programs')
         self.setWindowFlags(Qt.WindowCloseButtonHint | Qt.MSWindowsFixedSizeDialogHint)
 
     @pyqtSlot()

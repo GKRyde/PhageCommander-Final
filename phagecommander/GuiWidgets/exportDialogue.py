@@ -25,7 +25,7 @@ class exportDialog(QDialog):
     _LESS_THAN_EQUAL_BUTTON_TEXT = 'No more than'
     _GREATER_THAN_BUTTON_TEXT = 'At least'
     _ALL_BUTTON_TEXT = 'All programs'
-    _ONE_BUTTON_TEXT = 'Export all genes'
+    _ONE_BUTTON_TEXT = 'Any program (Export all genes)'
     _INVALID_SAVE_FILE_BORDER = 'border: 1px solid red'
     
     # (GRyde) ************************************************************************** start
@@ -188,24 +188,39 @@ class exportDialog(QDialog):
         cancelButton.clicked.connect(self.cancelPressed)
 
         self.saveLineEdit = QLineEdit()
-        self.saveLineEdit.setMinimumWidth(200)
+        self.saveLineEdit.setMinimumWidth(300) # Originally 200, scaled up after changing grid layout
         self.saveLineEdit.textEdited.connect(self.saveLineEdited)
         saveButton = QPushButton('Save as...')
         saveButton.clicked.connect(self.saveFile)
 
         # LAYOUT -------------------------------------------------------------------
+        # Old implementation of spin box. Needed to be added to radioButtonLayout to achieve aesthetic effect
+        # requested.
+        
+        #spinBoxLayout.addWidget(self.filterSpinBox)
+        #spinBoxLayout.addWidget(callsLabel)
+        
+        # Re-purposing spinBoxLayout to get intended aesthetic effect for program
+        spinBoxLayout.addWidget(greaterThanRadioButton)
         spinBoxLayout.addWidget(self.filterSpinBox)
         spinBoxLayout.addWidget(callsLabel)
+        # Since width of radio button is relevant to the layout mostly, adjusting width here instead of putting in the block of text
+        # that creates all the radio buttons
+        greaterThanRadioButton.setMaximumWidth(85)
 
         mainLayout.addWidget(selectionText)
         #mainLayout.addLayout(spinBoxLayout)
         
-        radioButtonLayout.addWidget(lessThanEqualRadioButton, 0, 0)
-        radioButtonLayout.addWidget(allRadioButton, 0, 1)
-        radioButtonLayout.addWidget(greaterThanRadioButton, 1, 0)
-        radioButtonLayout.addWidget(oneRadioButton, 1, 1)
-        radioButtonLayout.addWidget(exactlyRadioButton, 2, 0)
-        radioButtonLayout.addWidget(tRNABox, 2, 1)
+        # Commented out buttons removed from final version but code remains in case needed again
+        # or to allow for re-purposing later
+        
+        #radioButtonLayout.addWidget(lessThanEqualRadioButton, 0, 0)
+        radioButtonLayout.addWidget(oneRadioButton, 0, 0)
+        #radioButtonLayout.addWidget(greaterThanRadioButton, 1, 0)
+        radioButtonLayout.addLayout(spinBoxLayout, 1, 0)
+        radioButtonLayout.addWidget(allRadioButton, 2, 0)
+        #radioButtonLayout.addWidget(exactlyRadioButton, 2, 0)
+        radioButtonLayout.addWidget(tRNABox, 3, 0)
         
         # (GRyde) ********************************************************************** start
         # Testing layouts for extra buttons
@@ -218,7 +233,7 @@ class exportDialog(QDialog):
         
         # These .addStretch lines line up the second box perfectly with the first, very aesthetic
         codonMainLayout.addLayout(codonLabelLayout)
-        codonMainLayout.addStretch(1)
+        #codonMainLayout.addStretch(1)
         codonMainLayout.addLayout(codonRadioButtonLayout)
         codonMainLayout.addStretch(2)
         
@@ -226,7 +241,7 @@ class exportDialog(QDialog):
         # (GRyde) ********************************************************************** end
 
         mainLayout.addLayout(radioButtonLayout)
-        mainLayout.addLayout(spinBoxLayout)
+        #mainLayout.addLayout(spinBoxLayout)
 
         saveFileLayout.addWidget(self.saveLineEdit)
         saveFileLayout.addWidget(saveButton)

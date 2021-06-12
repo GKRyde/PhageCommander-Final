@@ -61,10 +61,13 @@ class exportDialog(QDialog):
         exportLabelFont = QFont()
         exportLabelFont.setPointSize(12)
         exportLabelFont.setUnderline(True)
+        
+        exportCallsFont = QFont()
+        exportCallsFont.setPointSize(12)
 
         # WIDGETS ------------------------------------------------------------------
         mainLayout = QVBoxLayout()
-        spinBoxLayout = QHBoxLayout()
+        spinBoxLayout = QGridLayout() # Previously QHBoxLayout()
         radioButtonLayout = QGridLayout()
         saveFileLayout = QHBoxLayout()
         buttonLayout = QHBoxLayout()
@@ -87,8 +90,8 @@ class exportDialog(QDialog):
         self.filterSpinBox.setMinimum(1)
         self.filterSpinBox.setValue(self.filterSpinBox.maximum())
 
-        callsLabel = QLabel('Programs')
-        callsLabel.setFont(exportLabelFont)
+        callsLabel = QLabel('programs')
+        callsLabel.setFont(exportCallsFont)
 
         self.radioButtons = []
         exactlyRadioButton = QRadioButton(self._EXACTLY_BUTTON_TEXT)
@@ -188,7 +191,7 @@ class exportDialog(QDialog):
         cancelButton.clicked.connect(self.cancelPressed)
 
         self.saveLineEdit = QLineEdit()
-        self.saveLineEdit.setMinimumWidth(300) # Originally 200, scaled up after changing grid layout
+        self.saveLineEdit.setMinimumWidth(150) # Originally 200, scaled up after changing grid layout
         self.saveLineEdit.textEdited.connect(self.saveLineEdited)
         saveButton = QPushButton('Save as...')
         saveButton.clicked.connect(self.saveFile)
@@ -201,12 +204,12 @@ class exportDialog(QDialog):
         #spinBoxLayout.addWidget(callsLabel)
         
         # Re-purposing spinBoxLayout to get intended aesthetic effect for program
-        spinBoxLayout.addWidget(greaterThanRadioButton)
-        spinBoxLayout.addWidget(self.filterSpinBox)
-        spinBoxLayout.addWidget(callsLabel)
+        spinBoxLayout.addWidget(greaterThanRadioButton, 0, 0)
+        spinBoxLayout.addWidget(self.filterSpinBox, 0, 1)
+        spinBoxLayout.addWidget(callsLabel, 0, 2)
         # Since width of radio button is relevant to the layout mostly, adjusting width here instead of putting in the block of text
         # that creates all the radio buttons
-        greaterThanRadioButton.setMaximumWidth(85)
+        #greaterThanRadioButton.setMaximumWidth(140)
 
         mainLayout.addWidget(selectionText)
         #mainLayout.addLayout(spinBoxLayout)
@@ -214,6 +217,7 @@ class exportDialog(QDialog):
         # Commented out buttons removed from final version but code remains in case needed again
         # or to allow for re-purposing later
         
+        oneRadioButton.sizePolicy().setHorizontalStretch(1)
         #radioButtonLayout.addWidget(lessThanEqualRadioButton, 0, 0)
         radioButtonLayout.addWidget(oneRadioButton, 0, 0)
         #radioButtonLayout.addWidget(greaterThanRadioButton, 1, 0)
@@ -221,6 +225,7 @@ class exportDialog(QDialog):
         radioButtonLayout.addWidget(allRadioButton, 2, 0)
         #radioButtonLayout.addWidget(exactlyRadioButton, 2, 0)
         radioButtonLayout.addWidget(tRNABox, 3, 0)
+        
         
         # (GRyde) ********************************************************************** start
         # Testing layouts for extra buttons
